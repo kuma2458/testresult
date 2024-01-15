@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>main</title>
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+function btnsearchClick(){
+	let d = {
+			searchtype : $('#searchtype').val(),
+			search:$('#search').val()
+	};
+	console.log(d);
+	$.ajax({
+		url : '/employee/search',
+		data : JSON.stringify(d),
+		type:'post',
+		dataType : 'json',
+		success : function(r){
+			const tag = r.list.reduce((acc,cur,idx) => {
+				return acc + `<tr><td>${cur.eno}</td><td>${cur.eName}</td><td>${em.eDepart}</td><td>${em.positionName}</td><td>${em.salary}</td></tr>`;
+			},'');
+			console.log(tag);
+			$('table > tbody').html(tag);
+		}
+	});
+}
+
+</script>
+<body>
+<h1>사원 정보 관리 페이지</h1>
+<div class="insert_container">
+	<form action="/employee/insert" method="post">
+		<input type="text" placeholder="사원번호" id="eno" name="eno">
+		<input type="text" placeholder="사원명" id="eName" name="eName">
+		<input type="text" placeholder="부서명" id="eDepart" name="eDepart">
+		<input type="text" placeholder="급여" id="salary" name="salary">
+		<select id="positionNo" name="positionNo">
+		<option value="1">사원</option>
+		<option value="2">주임</option>
+		<option value="3">대리</option>
+		<option value="4">과장</option>
+		<option value="5">차장</option>
+		<option value="6">부장</option>
+		<option value="7">사장</option>
+		</select>
+		<button>사원등록</button>
+	</form>
+</div>
+<div class="search_container">
+	<form action=" /employee/search" method="post">
+		<select id="searchtype" name="searchtype">
+			<option value="NAME">이름</option>
+			<option value="ENO">사번</option>
+			<option value="DEPARTMENT">부서</option>
+		</select>
+		<input type="text" id="search" name="search">
+		<button class="search_btn">검색</button>
+	</form>
+</div>
+<table>
+	<thead>
+	<tr>
+		<th>
+			사원번호
+		</th>
+		<th>
+			사원명
+		</th>
+		<th>
+			부서명
+		</th>
+		<th>
+			직급
+		</th>
+		<th>
+			급여
+		</th>
+		<th>
+			작업
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr th:each="em:${list}">
+			<td>[[${em.eno}]]</td>
+			<td>[[${em.eName}]]</td>
+			<td>[[${em.eDepart}]]</td>
+			<td>[[${em.positionName}]]</td>
+			<td>[[${em.salary}]]</td>
+			<td><a th:href="@{/employee/update/view(${em.eno})}">수정</a> <a th:href="@{/employee/delete(${em.eno})}">삭제</a></td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

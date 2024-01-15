@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>사원정보 수정 페이지</h1>
+<div class="update_container">
+	<form action="/employee/insert" method="post">
+		<input type="text" id="eno" name="eno" th:value="${dto.eno}">
+		<input type="text" id="eName" name="eName" th:value="${dto.eName}">
+		<input type="text" id="eDepart" name="eDepart" th:value="${dto.eDepart}">
+		<input type="text" id="salary" name="salary" th:value="${dto.salary}">
+		<select id="positionNo" name="positionNo" th:selected="${dto.positionNo} == 1">
+		<option value="1">사원</option>
+		<option value="2">주임</option>
+		<option value="3">대리</option>
+		<option value="4">과장</option>
+		<option value="5">차장</option>
+		<option value="6">부장</option>
+		<option value="7">사장</option>
+		</select>
+		<button>사원등록</button>
+	</form>
+</div>
+</body>
+</html>

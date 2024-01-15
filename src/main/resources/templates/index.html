@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+</head>
+<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	.container{
+		width:600px;
+		margin:0 auto;
+		text-align: center;
+	}
+	#frm_em{
+	width:200px;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	}
+
+</style>
+<body>
+	<div class=container>
+		<h1>사원 관리 프로그램</h1>
+		<form action="/login" method="post" id="frm_em">
+			<label for="eno">사원번호</label>
+			<input type="text" id="eno" name="eno">
+			<label for="ename">이름</label>
+			<input type="text" id="ename" name="ename">
+			<button>로그인</button>
+		</form>
+	</div>
+</body>
+</html>

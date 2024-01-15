@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.mapper.EmployeeMapper">
+	<resultMap type="employee" id="employee">
+		<id column="ENO" property="eno" />
+		<result column="NAME" property="eName" />
+		<result column="DEPARTMENT" property="eDepart" />
+		<result column="POSITION_NO" property="positionNo" />
+		<result column="POSITION_NAME" property="positionName" />
+		<result column="SALARY" property="salary" />
+	</resultMap>
+
+	<select id="selectemployee" parameterType="hashmap" resultMap="employee"> 
+	SELECT e.ENO ,e.NAME ,e.DEPARTMENT, e.POSITION_NO ,e.SALARY ,pl.POSITION_NAME 
+	FROM EMPLOYEE e JOIN POSITION_LIST pl ON e.POSITION_NO =pl.POSITION_NO 
+	WHERE e.ENO LIKE #{eno} AND e.NAME like #{ename}
+	</select>
+	
+	<select id="selectAllEmployee" resultMap="employee">
+	SELECT e.ENO ,e.NAME ,e.DEPARTMENT, e.POSITION_NO ,e.SALARY ,pl.POSITION_NAME 
+	FROM EMPLOYEE e JOIN POSITION_LIST pl ON e.POSITION_NO =pl.POSITION_NO 
+	</select>
+	
+	<delete id="deleteEmployee" parameterType="String">
+		delete from EMPLOYEE where EMPLOYEE.ENO LIKE ${eno}
+	</delete>
+	
+	<insert id="insertEmployee" parameterType="hashmap">
+	insert into EMPLOYEE values(#{eno},#{eName},#{eDepart},#{positionNo},#{salary})
+	</insert>
+	
+	<select id="searchEmployee" parameterType="hashmap">
+	<![CDATA[
+		SELECT e.ENO ,e.NAME ,e.DEPARTMENT, e.POSITION_NO ,e.SALARY ,pl.POSITION_NAME 
+		FROM EMPLOYEE e JOIN POSITION_LIST pl ON e.POSITION_NO =pl.POSITION_NO 
+		WHERE e.#{searchtype} like #{search}
+		]]>
+	</select>
+	
+	<select id="selectemployee1" parameterType="String" resultMap="employee">
+	SELECT e.ENO ,e.NAME ,e.DEPARTMENT, e.POSITION_NO ,e.SALARY ,pl.POSITION_NAME 
+	FROM EMPLOYEE e JOIN POSITION_LIST pl ON e.POSITION_NO =pl.POSITION_NO 
+	WHERE e.ENO LIKE #{eno}
+	</select>
+</mapper>
+
+
+
+
+
+
+
